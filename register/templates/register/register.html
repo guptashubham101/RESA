@@ -1,0 +1,32 @@
+
+
+{% block content %}
+<div class = "d-flex align-items-center justify-content-center" style="height: 100vh">
+    <!-- <img src = "/images/newphoto.jpeg" class = "img-fluid image"> -->
+    <div class = "card card-block d-flex " style="width: 350px; box-shadow: 0 30px 60px 0 rgba(0,0,0,0.15);">
+<h2> User Registeration</h2>
+<form method ="POST">
+    {% csrf_token %}
+    {% for field in registration_form %}
+    <p>
+        {{field.label_tag}}
+        {{field}}
+        {% if field.help_text %}
+            <small style ="color: grey;"{{field.help_text}}</small>
+            </small>
+
+        {%endif%}
+        {% for error in field.errors%}
+        <p style ="color: red;">{{error}}</p>
+
+        {%endfor%}
+    </p>
+    {%endfor%}
+    <button type ="submit"> Register</button>
+
+    
+</form>
+
+    </div>
+</div>
+{% endblock content %}
