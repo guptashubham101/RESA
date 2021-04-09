@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'app',
+    'register',
+    'userhomepage',
     'django.contrib.postgres',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +56,17 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'recipe_extractor.urls'
-
+AUTH_USER_MODEL =('register.User')
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'social_core.backends.open_id.OpenIdAuth',
+#     # 'social_core.backends.google.GoogleOpenId',
+#     # 'social_core.backends.google.GoogleOAuth2',
+#     # 'social_core.backends.google.GoogleOAuth',
+#     # 'social_core.backends.twitter.TwitterOAuth',
+#     # 'social_core.backends.facebook.FacebookOAuth2',
+#     # 'social_core.backends.github.GithubOAuth2',
+# ]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
