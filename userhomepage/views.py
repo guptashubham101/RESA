@@ -5,3 +5,5 @@ from django.http import HttpResponse
 def user_homepage(request):
     return render(request, "userhomepage/userhomepage.html")
 
+def write_recipe(request):
+	return render(request, "write_recipe/write_recipe.html")
