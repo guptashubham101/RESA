@@ -54,7 +54,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-<<<<<<< HEAD:register/migrations/0001_initial.py
             name='User',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -78,8 +77,6 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-=======
->>>>>>> e9cd2ae9a791549aa6a7271e806e4e3959155a06:app/migrations/0001_initial.py
             name='Ingredients',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -90,12 +87,9 @@ class Migration(migrations.Migration):
                 'db_table': 'ingredients',
             },
         ),
-<<<<<<< HEAD:register/migrations/0001_initial.py
         migrations.AddField(
             model_name='extractedrecipe',
             name='userId',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='register.user'),
         ),
-=======
->>>>>>> e9cd2ae9a791549aa6a7271e806e4e3959155a06:app/migrations/0001_initial.py
     ]

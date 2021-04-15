@@ -33,4 +33,3 @@ class WriteRecipeApiView(APIView):
     
 def user_homepage(request):
     return render(request, "userhomepage/userhomepage.html")
->>>>>>> e9cd2ae9a791549aa6a7271e806e4e3959155a06
