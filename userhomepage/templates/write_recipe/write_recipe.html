@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Home Page</title>
+
+  {% load static %}
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+
+<script type="text/javascript">
+function validate(frm)
+{
+  var ele = frm.elements['feedurl[]'];
+  if (! ele.length)
+  {
+    alert(ele.value);
+  }
+  for(var i=0; i<ele.length; i++)
+  {
+    alert(ele[i].value);
+  }
+  return true;
+}
+function add_feed()
+{
+  var div1 = document.createElement('div');
+  
+  // Get template data
+  div1.innerHTML = document.getElementById('row1').innerHTML;
+  //div2.innerHTML = document.getElementById('row1').innerHTML;
+  // append to our form, so that template data
+  //become part of form
+  document.getElementById('row0').appendChild(div1);
+}
+</script>
+
+</head>
+<body>
+
+<nav class="nav-extended">
+    <div class="nav-wrapper">
+      <a id="logo-container" href="#" class="brand-logo center" >RESA</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li ><a href="{% url 'logout' %}"><i class="large material-icons left">exit_to_app</i>Logout</a></li>
+      </ul>
+    </div>
+
+    <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="tab"><a href="#test1">Recipes</a></li>
+        <li class="tab"><a href="#test2">Upload Link</a></li>
+        <li class="tab"><a href="#test3">Write Recipe</a></li>
+        <li class="tab"><a href="#test4">Dictate Recipe</a></li>
+        <h5 class="right">Hello,  {{ user.first_name}} &nbsp;&nbsp;</h5>
+      </ul>
+    </div>
+  </nav>
+
+
+  
+
+<div class="row">
+        <div class="col s12 center">
+          <h3>
+            <i class="mdi-content-send brown-text"></i>
+          </h3>
+          <h4>Write Recipe</h4>
+        </div>
+      </div>
+  
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Recipe Title</label>
+        </div>
+      </div>
+
+
+
+
+<div id=row0>
+    <div class="row">
+     <div class="input-field col s12" id="newlink">
+         <textarea name="feedurl[]" id="textarea3" class="materialize-textarea"></textarea>
+         <label for="textarea3">Enter Ingredient</label>
+       </div>
+     </div>
+   </div>
+      
+   
+  
+<p id="addnew">
+  <a href="javascript:add_feed()">Add New </a>
+</p>
+
+
+
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea2" class="materialize-textarea"></textarea>
+          <label for="textarea2">Enter your recipe here..</label>
+        </div>
+      </div>
+
+
+
+
+  
+
+<!-- Template. This whole data will be added directly to working form above -->
+
+      
+
+      <div class=row>
+        <div class="col s3" style="padding-top: 20px;">
+          <button class="btn-floating btn-large waves-effect waves-light red" form="indexForm"
+            type="submit" name="action">
+            <i class="material-icons right">add</i>
+          </button>
+        </div>
+      </div>
+
+      
+
+    </form>
+
+    
+     <div id=row1 style="display: none">
+    <div class="row">
+     <div class="input-field col s12" id="newlinktpl">
+         <textarea name="feedurl[]" id="textarea" class="materialize-textarea"></textarea>
+         <label for="textarea">Enter Ingredient</label>
+       </div>
+     </div>
+   </div>
+  
+</div>
+
+  </div>
+        
+
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="{% static 'js/materialize.js' %}"></script>
+  <script src="{% static 'js/init.js' %}"></script>
+
+
+</body>
+
+</html>
