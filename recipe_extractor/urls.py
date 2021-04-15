@@ -34,5 +34,5 @@ urlpatterns = [
     path('userhomepage/', user_homepage, name ="userhomepage" ),
     path('',logout, name ="logout" ),
     path('write_recipe/', WriteRecipeApiView.as_view(), name  ='writeRecipe'),
-    path('', WriteRecipeApiView.as_view(), name  ='postRecipe'),
+    path('write_recipe/postRecipe', WriteRecipeApiView.as_view(), name  ='postRecipe'),
 ]

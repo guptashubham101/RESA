@@ -74,10 +74,11 @@ function add_feed()
   </div>
   
   <div class="row">
-    <form  action="{% url 'postRecipe' %}" method ="POST" class="col s12">
+    <form  method ="POST" class="col s12">
+      {% csrf_token %}
       <div class="row">
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <textarea name="title" id="textarea1" class="materialize-textarea"></textarea>
           <label for="textarea1">Recipe Title</label>
           {{write.title}}
         </div>
@@ -106,7 +107,7 @@ function add_feed()
 
       <div class="row">
         <div class="input-field col s12">
-          <textarea id="textarea2" class="materialize-textarea"></textarea>
+          <textarea name="recipe" id="textarea2" class="materialize-textarea"></textarea>
           <label for="textarea2">Enter your recipe here..</label>
           {{write.recipe}}
         </div>

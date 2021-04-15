@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.views import APIView
+from register.models import *
 # Create your views here.
 
 class WriteRecipeApiView(APIView):
@@ -16,16 +17,27 @@ class WriteRecipeApiView(APIView):
         Create the Todo with given todo data
         '''
         print(request)
-        print(request.data)
-        data = {
-            'task': request.data.get('task'), 
-            'completed': request.data.get('completed'), 
-            'user': request.user.id
-        }
-        serializer = TodoSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(request.data["title"])
+        print(request.data["feedurl[]"])
+        print(request.data["recipe"])
+
+
+        print(request.user)
+        print(request.user.first_name)
+        recipe = ExtractedRecipe.objects.create(
+                    userId = request.user,
+                    recipe_template = request.data["recipe"],
+                    recipe_title = request.data["title"]
+                )
+
+        print(recipe)
+
+        Ingredients.objects.create(
+                    recipeId = recipe,
+                    ingredient_name = request.data["feedurl[]"]
+                )
+ 
+       
 
         return render(request, 'write_recipe/write_recipe.html')
 
