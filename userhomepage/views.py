@@ -44,4 +44,9 @@ class WriteRecipeApiView(APIView):
 
     
 def user_homepage(request):
-    return render(request, "userhomepage/userhomepage.html")
+
+    # 1. List all
+    print('homepage')
+    queryset = ExtractedRecipe.objects.filter(userId=request.user)
+    
+    return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})

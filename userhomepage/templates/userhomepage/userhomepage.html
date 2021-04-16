@@ -43,20 +43,19 @@
                   <input id="search" type="text" placeholder="Search...">
                </div>
             </div>
-         </div>
+		 </div>
+		 
          <div class="col s8">
+			 
+			{% for profile in queryset %}
             <div class="card horizontal">
                <div class="card-content">
-                  <a href="#" class="card-title">Recipe 1 link</a>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
+                  <a href="#" class="card-title">{{ profile.recipe_title }}</a>
+                  <p>{{ profile.recipe_template }}</p>
                </div>
-            </div>
-            <div class="card horizontal">
-               <div class="card-content">
-                  <a href="#" class="card-title">Recipe 2 link</a>
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-               </div>
-            </div>
+			</div>
+			{% endfor %}
+            
          </div>
       </div>
       <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
