@@ -42,7 +42,13 @@ class WriteRecipeApiView(APIView):
 
         return render(request, 'write_recipe/write_recipe.html')
 
-
+class UploadLinkApiView(APIView):
+    # 1. List all
+    print('In Upload Link')
+    def get(self, request, *args, **kwargs):
+        print('123')
+        #return render(request, 'write_recipe/write_recipe.html')
+        return render(request, 'upload_link/upload_link.html')
     
 def user_homepage(request):
 
@@ -99,12 +105,3 @@ class GetRecipeView(APIView):
         print(ingredient.ingredient_name)
 
         return render(request, 'userhomepage/userhomepage.html', {'queryset': queryset})
-
-        
-
-
-    
-
-    
-
-
