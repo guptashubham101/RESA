@@ -21,7 +21,7 @@ from register.views import (
     User_View, user_login,logout
 )
 from userhomepage.views import (
-    user_homepage, WriteRecipeApiView
+    user_homepage, WriteRecipeApiView, UploadLinkApiView
 )
 
 
@@ -35,4 +35,5 @@ urlpatterns = [
     path('',logout, name ="logout" ),
     path('write_recipe/', WriteRecipeApiView.as_view(), name  ='writeRecipe'),
     path('', WriteRecipeApiView.as_view(), name  ='postRecipe'),
+    path('upload_link/', UploadLinkApiView.as_view(), name  ='upload_link'),
 ]
