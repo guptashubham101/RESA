@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework.views import APIView
 from register.models import *
+from recipe_scrapers import scrape_me
+
 # Create your views here.
 
 class WriteRecipeApiView(APIView):
@@ -43,16 +45,37 @@ class WriteRecipeApiView(APIView):
 
 class UploadLinkApiView(APIView):
     # 1. List all
-    print('In Upload Link')
+    def post(self, request, *args, **kwargs):
+        inputurl = request.data["urlink"]
+        
+        scraper = scrape_me(inputurl)
+        ingredients_required= scraper.ingredients()
+        recipe = ExtractedRecipe.objects.create(
+                    userId = request.user,
+                    recipe_template = scraper.instructions(),
+                    recipe_title = scraper.title()
+                )
+        for x in ingredients_required:
+            Ingredients.objects.create(
+                    recipeId = recipe,
+                    ingredient_name = x
+            )
+ 
+
+        # Ingredients.objects.create(
+        #             recipeId = recipe,
+        #             ingredient_name = request.data["feedurl[]"]
+        #         )
+        return render(request, 'upload_link/upload_link.html')
     def get(self, request, *args, **kwargs):
-        print('123')
+        
         #return render(request, 'write_recipe/write_recipe.html')
         return render(request, 'upload_link/upload_link.html')
     
 def user_homepage(request):
 
     # 1. List all
-    print('homepage')
+    
     queryset = ExtractedRecipe.objects.filter(userId=request.user)
     
     return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
