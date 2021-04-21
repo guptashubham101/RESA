@@ -13,6 +13,9 @@
 
 
 <script type="text/javascript">
+
+var i=false
+var arr=[]
 function validate(frm)
 {
   var ele = frm.elements['feedurl[]'];
@@ -26,17 +29,22 @@ function validate(frm)
   }
   return true;
 }
+
 function add_feed()
 {
+  if(i==false){
+    arr.push(document.getElementById('row0').value)
+  }
   var div1 = document.createElement('div');
   
-  // Get template data
+  
   div1.innerHTML = document.getElementById('row1').innerHTML;
-  //div2.innerHTML = document.getElementById('row1').innerHTML;
-  // append to our form, so that template data
-  //become part of form
+  
   document.getElementById('row0').appendChild(div1);
+  arr.push(document.getElementById('row1').value)
+
 }
+
 </script>
 
 </head>
@@ -66,9 +74,6 @@ function add_feed()
 
   <div class="row">
     <div class="col s12 center">
-      <h3>
-        <i class="mdi-content-send brown-text"></i>
-      </h3>
       <h4>Write Recipe</h4>
     </div>
   </div>
@@ -122,16 +127,10 @@ function add_feed()
 
       
 
-      <div class=row>
+      <div class="row center-align">
         <div class = "form-groups mr-sm-2 mb-2 ml-sm-2">
-          <input type = "submit" class = "btn btn-primary btn-sm">
+          <input type = "submit" class = "btn btn-primary btn-sm" value="submit">
         </div>
-        <!-- <div class="col s3" style="padding-top: 20px;">
-          <button class="btn-floating btn-large waves-effect waves-light red" form="indexForm"
-            type="submit" value="Save" name="action">
-            <i class="material-icons right">add</i>
-          </button>
-        </div> -->
       </div>
 
       

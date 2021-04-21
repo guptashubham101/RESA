@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -50,7 +51,7 @@
 			{% for profile in queryset %}
             <div class="card horizontal">
                <div class="card-content">
-                  <a href="#" class="card-title">{{ profile.recipe_title }}</a>
+                  <a href="../get_Recipe/?recipe_id={{profile}}" class="card-title">{{ profile.recipe_title }}</a>
                   <p>{{ profile.recipe_template }}</p>
                </div>
 			</div>
