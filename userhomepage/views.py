@@ -20,6 +20,7 @@ class WriteRecipeApiView(APIView):
         print(request.data["title"])
         print(request.data["feedurl[]"])
         print(request.data["recipe"])
+        print()
 
 
         print(request.user)
@@ -56,4 +57,51 @@ def user_homepage(request):
     queryset = ExtractedRecipe.objects.filter(userId=request.user)
     
     return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
-   
+
+'''def get_Recipe(request):
+
+        print('*********  get_recipe func ***************')
+
+        recipeId=request.GET.get('recipe_id')
+        recipe = ExtractedRecipe.objects.get(id=recipeId)
+        ingredient=Ingredients.objects.filter(recipeId=recipeId)
+        
+        return render(request,'write_recipe/recipe.html',{'recipe': recipe, 'ingredients': ingredient})
+'''
+
+
+class GetRecipeView(APIView):
+
+    def get(self, request, *args, **kwargs):
+
+        print('*********  get_recipe func ***************')
+
+        recipeId=request.GET.get('recipe_id')
+        print('get recipe id',recipeId)
+        recipe = ExtractedRecipe.objects.get(id=recipeId)
+        ingredient=Ingredients.objects.filter(recipeId=recipeId)
+        
+        return render(request,'write_recipe/recipe.html',{'recipe': recipe, 'ingredients': ingredient})
+
+    def post(self, request, *args, **kwargs):
+
+        print('post write recipe')
+
+        recipeId=request.GET.get('recipe_id')
+
+        recipe = ExtractedRecipe.objects.get(id=recipeId)
+        ingredient= Ingredients.objects.get(recipeId=recipeId)
+
+        recipe.recipe_title=request.data['title']
+        recipe.recipe_template=request.data['recipe']
+        ingredient.ingredient_name = request.data['feedurl[]']
+
+        recipe.save()
+        ingredient.save()
+
+        queryset = ExtractedRecipe.objects.filter(userId=request.user)
+        print(recipe.recipe_title)
+        print(recipe.recipe_template)
+        print(ingredient.ingredient_name)
+
+        return render(request, 'userhomepage/userhomepage.html', {'queryset': queryset})
