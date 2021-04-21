@@ -1,27 +1,105 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+form {border: 3px solid #f1f1f1;}
 
+input[type=text], input[type=password] {
+ width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.mbutton{
+	background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+div.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+</style>
+
+</head>
 {% block content %}
 <!--<h1> Hello {{name}}!!!!!</h1> -->
-<div class = "d-flex align-items-center justify-content-center" style="height: 100vh">
+<div class = "container" style="height: 100vh">
 	<!-- <img src = "/images/newphoto.jpeg" class = "img-fluid image"> -->
-	<div class = "card card-block d-flex " style="width: 350px; box-shadow: 0 30px 60px 0 rgba(0,0,0,0.15);">
-		<div class = "card-body">
+	<div class = "container" ">
+		<div class = "container", style="max-width: 300px">
 			<h5 class = "card-title">Log In</h5>
 			<form method ="POST">
 	
 			{% csrf_token %}
-			<div class = "form-groups mr-sm-2 mb-2 ml-sm-2">
-				<label for = "text" >Username:</label>
-				<input type = "text" name = "username" class = "form-control" id = username>
+			<div class = "container" ">
+				<label for = "psw" >Username:</label>
+				<input type = "text" name = "username" placeholder="Enter username" id = username>
 			</div>
-			<div class = "form-groups mr-sm-2 mb-2 ml-sm-2">
-				<label for = "password"> Password:</label>
-				<input type = "password" name="password" class = "form-control " id = password1>
+			<div class = "container">
+				<label for = "uname"> Password:</label>
+				<input type = "password" name="password" placeholder="Enter password" id = password1>
 			</div>
 			<!-- Enter Email : <input type="text" name="user_name" placeholder="user_name"> <br>
 			Enter Password : <input type="password" name="password" placeholder = "password"> <br> -->
-			<div class = "form-groups mr-sm-2 mb-2 ml-sm-2">
-				<input type = "submit" class = "btn btn-primary btn-sm">
-			</div>
+			<!-- <div class="mbutton"> -->
+				<!-- <input type = "submit" name = "submit" id = "submit"> -->
+			<!-- </div> -->
+
+			<button type="submit">submit</button>
+
 			<!-- 		Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
 			<input type="submit"> -->
 			</form>
