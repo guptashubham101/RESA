@@ -21,7 +21,7 @@ class  ExtractedRecipe(models.Model):
 class Ingredients(models.Model):
 
     recipeId = models.ForeignKey('ExtractedRecipe',on_delete=models.CASCADE,)
-    ingredient_name = models.CharField(max_length=50)
+    ingredient_name = models.TextField()
 
     class Meta:
         db_table = 'ingredients'
