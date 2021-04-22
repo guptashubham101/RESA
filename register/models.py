@@ -21,7 +21,7 @@ class  ExtractedRecipe(models.Model):
 class Ingredients(models.Model):
 
     recipeId = models.ForeignKey('ExtractedRecipe',on_delete=models.CASCADE,)
-    ingredient_name = models.CharField(max_length=50)
+    ingredient_name = models.TextField()
 
     class Meta:
         db_table = 'ingredients'
@@ -54,7 +54,8 @@ class User_Manager(BaseUserManager):
         user.set_password(password)
         user.save(using = self.db)
         return user
-    def create_superuser(self, email, username, password, first_name,last_name,university_name,school_ID):
+    def create_superuser(self, email, username, password, first_name, last_name, university_name, school_ID,
+                         contact_number=None):
             
         user = self.create_user(
                 email= self.normalize_email(email),
