@@ -103,7 +103,6 @@ class GetRecipeView(APIView):
         print('get recipe id',recipeId)
         recipe = ExtractedRecipe.objects.get(id=recipeId)
         recipeList = recipe.recipe_template.split(".")
-        recipeList = recipeList[:-1]
         ingredient=Ingredients.objects.filter(recipeId=recipeId)
         ingredientList = []
         ingredientStr = ''
