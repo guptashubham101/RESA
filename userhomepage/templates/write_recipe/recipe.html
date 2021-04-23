@@ -77,11 +77,21 @@ document.getElementById('new_form').style.display = '';
 <div class='row'>  
    
 
-   <h4> &nbsp; <i class='teal-text text-lighten-2'>Recipe Name:</i>  <font size='+3'>{{recipe.recipe_title}} </font> </h4>
+   <h5> &nbsp; <i class='teal-text text-lighten-2'>Recipe Name:</i>  <font size='+1'>{{recipe.recipe_title}} </font> </h5>
 
-   <h4>&nbsp; <i class='teal-text text-lighten-2'> Ingredients:</i> {% for i in ingredients %} <font size='+3'>{{i.ingredient_name}} </font> {% endfor %} </h4>
-   <h4> &nbsp; <i class='teal-text text-lighten-2'> Recipe: </i></h4>
-   <p> &nbsp;  &nbsp; <font size='+1'>{{recipe.recipe_template }} </font></p><br>
+   <h5>&nbsp; <i class='teal-text text-lighten-2'> Ingredients:</i> </h5>
+   <ul>
+    {% for i in ingredients %}
+      <li style="padding-left:30px">{{i.ingredient_name}} </li>
+    {% endfor %} 
+   </ul>
+     
+   <h5> &nbsp; <i class='teal-text text-lighten-2'> Instructions: </i></h5>
+   <ul>
+    {% for i in recipeList %}
+      <li style="padding-left:30px">{{i}}. </li>
+    {% endfor %} 
+   </ul>
 
    
 

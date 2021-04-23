@@ -102,9 +102,11 @@ class GetRecipeView(APIView):
         recipeId=request.GET.get('recipe_id')
         print('get recipe id',recipeId)
         recipe = ExtractedRecipe.objects.get(id=recipeId)
+        recipeList = recipe.recipe_template.split(".")
+        recipeList = recipeList[:-1]
         ingredient=Ingredients.objects.filter(recipeId=recipeId)
         
-        return render(request,'write_recipe/recipe.html',{'recipe': recipe, 'ingredients': ingredient})
+        return render(request,'write_recipe/recipe.html',{'recipe': recipe,'recipeList': recipeList, 'ingredients': ingredient})
 
     def post(self, request, *args, **kwargs):
 
