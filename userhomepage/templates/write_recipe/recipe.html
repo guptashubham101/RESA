@@ -64,13 +64,12 @@ document.getElementById('new_form').style.display = '';
             </ul>
          </div>
          <div class="nav-content">
-            <ul class="tabs tabs-transparent">
-               <li class="tab"><a href="{% url 'userhomepage' %}">Recipes</a></li>
-               <li class="tab"><a href="#test2">Upload Link</a></li>
-               <li class="tab"><a href="{% url 'writeRecipe' %}">Write Recipe</a></li>
-               <li class="tab"><a href="#test4">Dictate Recipe</a></li>
-               <h5 class="right">Hello,  {{ user.first_name}} &nbsp;&nbsp;</h5>
-            </ul>
+          <ul class="tabs tabs-transparent">
+            <li class="tab"><a href="{% url 'userhomepage' %}">Recipes</a></li>
+            <li class="tab"><a href="{% url 'upload_link' %}">Upload Link</a></li>
+            <li class="tab"><a href="{% url 'writeRecipe' %}">Write Recipe</a></li>
+            <h5 class="right">Hello,  {{ user.first_name}} &nbsp;&nbsp;</h5>
+         </ul>
          </div>
       </nav>
 
@@ -82,7 +81,7 @@ document.getElementById('new_form').style.display = '';
    <h5>&nbsp; <i class='teal-text text-lighten-2'> Ingredients:</i> </h5>
    <ul>
     {% for i in ingredients %}
-      <li style="padding-left:30px">{{i.ingredient_name}} </li>
+      <li style="padding-left:30px">{{i}} </li>
     {% endfor %} 
    </ul>
      
@@ -96,9 +95,7 @@ document.getElementById('new_form').style.display = '';
    
 
 </div>
-
-<button onclick="add_form()" class="btn">Edit</button> 
-
+<div class="row center-align"><button onclick="add_form()" class="btn btn-primary btn-sm">Edit</button> </div>
 
 
 
@@ -128,17 +125,11 @@ document.getElementById('new_form').style.display = '';
       <div id=row0>
         <div class="row">
           <div class="input-field col s12" id="newlink">
-            <textarea name="feedurl[]" id="textarea3" class="materialize-textarea">{% for i in ingredients %}{{i.ingredient_name}} {% endfor %} </textarea>
+            <textarea name="feedurl[]" id="textarea3" class="materialize-textarea">{{ingredientStr}} </textarea>
             {{write.ingredients}}
           </div>
         </div>
       </div>
-      
-   
-  
-      <p id="addnew">
-        <a href="javascript:add_feed()">Add New </a>
-      </p>
 
 
 
@@ -163,16 +154,6 @@ document.getElementById('new_form').style.display = '';
       
 
     </form>
-
-    
-     <div id=row1 style="display: none">
-      <div class="row">
-        <div class="input-field col s12" id="newlinktpl">
-         <textarea name="feedurl[]" id="textarea" class="materialize-textarea"></textarea>
-         <label for="textarea">Enter Ingredient</label>
-        </div>
-      </div>
-    </div>
   
   </div>
 
