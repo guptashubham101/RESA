@@ -103,26 +103,35 @@ class GetRecipeView(APIView):
         print('get recipe id',recipeId)
         recipe = ExtractedRecipe.objects.get(id=recipeId)
         recipeList = recipe.recipe_template.split(".")
-        recipeList = recipeList[:-1]
         ingredient=Ingredients.objects.filter(recipeId=recipeId)
+        ingredientList = []
+        ingredientStr = ''
+        for i in ingredient:
+            ingredientList.append(i.ingredient_name)
+            ingredientStr = ingredientStr + i.ingredient_name + '* '
         
-        return render(request,'write_recipe/recipe.html',{'recipe': recipe,'recipeList': recipeList, 'ingredients': ingredient})
+        
+        return render(request,'write_recipe/recipe.html',{'recipe': recipe,'recipeList': recipeList, 'ingredients': ingredientList,'ingredientStr': ingredientStr})
 
     def post(self, request, *args, **kwargs):
 
         print('post write recipe')
 
         recipeId=request.GET.get('recipe_id')
-
         recipe = ExtractedRecipe.objects.get(id=recipeId)
-        ingredient= Ingredients.objects.get(recipeId=recipeId)
+        ingredient= Ingredients.objects.filter(recipeId=recipeId).first()
 
         recipe.recipe_title=request.data['title']
         recipe.recipe_template=request.data['recipe']
         ingredient.ingredient_name = request.data['feedurl[]']
+        Ingredients.objects.filter(recipeId=ingredient.recipeId).delete()
+        for x in request.data['feedurl[]'].split('* '):
+            Ingredients.objects.create(
+                    recipeId = ingredient.recipeId,
+                    ingredient_name = x
+            )
 
         recipe.save()
-        ingredient.save()
 
         queryset = ExtractedRecipe.objects.filter(userId=request.user)
         print(recipe.recipe_title)
