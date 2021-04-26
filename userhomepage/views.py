@@ -75,29 +75,35 @@ class UploadLinkApiView(APIView):
     
 def user_homepage(request):
     # 1. List all
-    queryset = ExtractedRecipe.objects.filter(userId=request.user)
-    #sorting by name
-    queryset = queryset.order_by("recipe_title")
+    print('calling',request.GET.get('searchbox'))
+
+    if request.GET.get('searchbox') is None:
+        print(request.user)
+        queryset = ExtractedRecipe.objects.filter(userId=request.user)
+        #sorting by name
+        queryset = queryset.order_by("recipe_title")
+    else:
+        print('search was called' , request)
+        queryset = None
+        key = ""
+        filter_name = 'by_name'
+        key = request.GET.get('searchbox')
+        if(key == ""):
+            queryset = ExtractedRecipe.objects.filter(userId=request.user)
+            #sorting by name
+            queryset = queryset.order_by("recipe_title")
+        if(filter_name == 'by_ingredients'):
+            queryset = Ingredients.objects.get(ingredient_name__contains = str(key)).values("recipeId")
+            q_set = set(queryset)
+            queryset = ExtractedRecipe.objects.filter(userId=request.user).get(ExtractedRecipe__in = q_set);
+            pass
+        elif(filter_name == 'by_name'):
+            print(str(key))
+            print(request.user)
+            queryset = ExtractedRecipe.objects.filter(userId=request.user).filter(recipe_title__contains=str(key))
+            pass
     return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
 
-def search_recipe(request):
-    print('search was called')
-    queryset = None
-    key = ""
-    filter_name = 'by_name'
-    key = request.GET['search']
-    if(key == ""):
-        user_homepage(request)
-    if(filter_name == 'by_ingredients'):
-        queryset = Ingredients.objects.get(ingredient_name__contains = str(key)).values("recipeId")
-        q_set = set(queryset)
-        queryset = ExtractedRecipe.objects.filter(userId=request.user).get(ExtractedRecipe__in = q_set);
-        pass
-    elif(filter_name == 'by_name'):
-        queryset = ExtractedRecipe.objects.filter(userId=request.user).get(recipe_title__contains=str(key))
-        pass
-
-    return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
 '''def get_Recipe(request):
 
         print('*********  get_recipe func ***************')
