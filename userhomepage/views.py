@@ -85,22 +85,23 @@ def user_homepage(request):
     else:
         print('search was called' , request)
         queryset = None
-        key = ""
-        filter_name = 'by_name'
         key = request.GET.get('searchbox')
         if(key == ""):
             queryset = ExtractedRecipe.objects.filter(userId=request.user)
             #sorting by name
             queryset = queryset.order_by("recipe_title")
-        if(filter_name == 'by_ingredients'):
-            queryset = Ingredients.objects.get(ingredient_name__contains = str(key)).values("recipeId")
-            q_set = set(queryset)
-            queryset = ExtractedRecipe.objects.filter(userId=request.user).get(ExtractedRecipe__in = q_set);
-            pass
-        elif(filter_name == 'by_name'):
+        else:
             print(str(key))
             print(request.user)
-            queryset = ExtractedRecipe.objects.filter(userId=request.user).filter(recipe_title__contains=str(key))
+            queryset1 = Ingredients.objects.filter(ingredient_name__icontains=str(key)).values("recipeId")
+            t_set = list(queryset1)
+            q_set = []
+            for i in t_set:
+                q_set += [i["recipeId"]]
+            queryset1 = ExtractedRecipe.objects.filter(userId=request.user).filter(id__in=q_set)
+            queryset = ExtractedRecipe.objects.filter(userId=request.user).filter(recipe_title__icontains=str(key))
+            queryset = queryset.union(queryset1)
+            queryset = queryset.order_by("recipe_title")
             pass
     return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
 

@@ -10,7 +10,14 @@
       <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
       <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
       <meta charset="utf-8">
-
+       <style>
+           .myRelative {
+ padding: 10px;
+ position: relative;
+ background-color: #fff;
+ margin: 10px;
+}
+       </style>
 
 
 <script type="text/javascript">
@@ -49,13 +56,29 @@ function add_form()
 {
 document.getElementById('new_form').style.display = '';
 }
-
+function start_download() {
+            // when clicked the button
+            // a [save as] dialog will be shown~
+            //window.open("data:application/txt," + encodeURIComponent(content), "_self + .doc");
+            var text = document.getElementById('recipeName').innerText;//"foo\nbar\nbaz";
+            var fname = text + ".txt";
+            var ingList = document.getElementById('textarea3').innerText;
+            ingList = ingList.replaceAll("*","\n");
+            ingList = ingList.replaceAll("Deselect All","");
+            var recList = document.getElementById('textarea2').innerText;
+            recList = recList.replaceAll("*","\n ")
+            recList = recList.replaceAll(". ",".\n-")
+            text += "\n Ingredients \n"+ ingList + "\nInstructions \n" + recList
+            var fileBlob = new Blob([text], {type: "application/octet-binary"});
+            var link = document.createElement("a");
+            link.setAttribute("href", URL.createObjectURL(fileBlob));
+            link.setAttribute("download", fname);
+            link.appendChild(document.createTextNode("Save file"));
+            document.body.appendChild(link);
+        }
 </script>
-
    </head>
-
 <body>
-
    <nav class="nav-extended">
          <div class="nav-wrapper">
             <a id="logo-container" href="#" class="brand-logo center" >Recipe Extractor and Storage Application</a>
@@ -73,20 +96,17 @@ document.getElementById('new_form').style.display = '';
          </div>
       </nav>
 
-<div class='row'>  
-   
-
-   <h5> &nbsp; <i class='teal-text text-lighten-2'>Recipe Name:</i>  <font size='+1'>{{recipe.recipe_title}} </font> </h5>
-
+<div class='row'>
+   <h5> &nbsp; <i class='teal-text text-lighten-2' >Recipe Name:</i>  <font size='+1' id="recipeName">{{recipe.recipe_title}} </font> </h5>
    <h5>&nbsp; <i class='teal-text text-lighten-2'> Ingredients:</i> </h5>
-   <ul>
+   <ul id="ingredientList">
     {% for i in ingredients %}
       <li style="padding-left:30px">{{i}} </li>
     {% endfor %} 
    </ul>
      
    <h5> &nbsp; <i class='teal-text text-lighten-2'> Instructions: </i></h5>
-   <ul>
+   <ul id="instructionList">
     {% for i in recipeList %}
       <li style="padding-left:30px">{{i}}. </li>
     {% endfor %} 
@@ -95,11 +115,9 @@ document.getElementById('new_form').style.display = '';
    
 
 </div>
-<div class="row center-align"><button onclick="add_form()" class="btn btn-primary btn-sm">Edit</button> </div>
-
-
-
-
+   <div class="row center-align"><button onclick="add_form()" class="btn btn-primary btn-sm">Edit</button> </div>
+   <div class="row center-align"><button onclick="window.print()" class="btn btn-primary btn-sm">print</button> </div>
+   <div class="row center-align"><button id="download" onclick="start_download()" class="btn btn-primary btn-sm">download</button> </div>
 
 <div id=new_form style="display: none">
       <div class="row">

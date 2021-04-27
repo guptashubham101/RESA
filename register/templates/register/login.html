@@ -54,6 +54,9 @@ img.avatar {
 
 .container {
   padding: 16px;
+  display: flex
+  justify-content: center
+  align-items: center
 }
 
 div.psw {
@@ -76,15 +79,15 @@ div.psw {
 </head>
 {% block content %}
 <!--<h1> Hello {{name}}!!!!!</h1> -->
-<div class = "container" style="height: 100vh">
+<div class = "container" style=" height: 100vh">
 	<!-- <img src = "/images/newphoto.jpeg" class = "img-fluid image"> -->
-	<div class = "container" ">
+	<div class = "container" >
 		<div class = "container", style="max-width: 300px">
 			<h5 class = "card-title">Log In</h5>
 			<form method ="POST">
-	
+
 			{% csrf_token %}
-			<div class = "container" ">
+			<div class = "container" >
 				<label for = "psw" >Username:</label>
 				<input type = "text" name = "username" placeholder="Enter username" id = username>
 			</div>
@@ -109,7 +112,7 @@ div.psw {
 				<a class = "m1-2" href = "{% url 'register' %}">Sign Up Now</a></p>
 				<!-- <input type = "submit" class = "mr-sm-2 mb-2"></div> -->
 		</div>
-	
+
 	<!-- </div class = "card"> -->
 	<!-- <div class = "wrapper fadeInDown">
 		<div id = "formContent">
