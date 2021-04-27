@@ -74,11 +74,35 @@ class UploadLinkApiView(APIView):
         return render(request, 'upload_link/upload_link.html')
     
 def user_homepage(request):
-
     # 1. List all
-    
-    queryset = ExtractedRecipe.objects.filter(userId=request.user)
-    
+    print('calling',request.GET.get('searchbox'))
+
+    if request.GET.get('searchbox') is None:
+        print(request.user)
+        queryset = ExtractedRecipe.objects.filter(userId=request.user)
+        #sorting by name
+        queryset = queryset.order_by("recipe_title")
+    else:
+        print('search was called' , request)
+        queryset = None
+        key = request.GET.get('searchbox')
+        if(key == ""):
+            queryset = ExtractedRecipe.objects.filter(userId=request.user)
+            #sorting by name
+            queryset = queryset.order_by("recipe_title")
+        else:
+            print(str(key))
+            print(request.user)
+            queryset1 = Ingredients.objects.filter(ingredient_name__icontains=str(key)).values("recipeId")
+            t_set = list(queryset1)
+            q_set = []
+            for i in t_set:
+                q_set += [i["recipeId"]]
+            queryset1 = ExtractedRecipe.objects.filter(userId=request.user).filter(id__in=q_set)
+            queryset = ExtractedRecipe.objects.filter(userId=request.user).filter(recipe_title__icontains=str(key))
+            queryset = queryset.union(queryset1)
+            queryset = queryset.order_by("recipe_title")
+            pass
     return render(request, "userhomepage/userhomepage.html", {'queryset': queryset})
 
 '''def get_Recipe(request):

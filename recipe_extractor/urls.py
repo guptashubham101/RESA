@@ -39,7 +39,8 @@ urlpatterns = [
     path('get_Recipe/', GetRecipeView.as_view(), name='getRecipe'),
     path('', GetRecipeView.as_view(), name  ='updateRecipe'),
     path('upload_link/', UploadLinkApiView.as_view(), name  ='upload_link'),
-   
+    path('userhomepage/',user_homepage,name="searchRecipe"),
+
 ]
 
  
